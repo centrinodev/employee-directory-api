@@ -32,6 +32,59 @@ export class AuthAccessTokenSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class DepartmenSchema extends BaseModel {
+  static $columns = ['createdAt', 'departmenName', 'id', 'updatedAt'] as const
+  $columns = DepartmenSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare departmenName: string
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class EmployeeSchema extends BaseModel {
+  static $columns = ['createdAt', 'departmensId', 'email', 'employeeCode', 'fullName', 'hireDate', 'id', 'phone', 'positionsId', 'status', 'updatedAt'] as const
+  $columns = EmployeeSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare departmensId: number | null
+  @column()
+  declare email: string
+  @column()
+  declare employeeCode: string
+  @column()
+  declare fullName: string
+  @column.date()
+  declare hireDate: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare phone: string
+  @column()
+  declare positionsId: number | null
+  @column()
+  declare status: string | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class PositionSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'positionsName', 'updatedAt'] as const
+  $columns = PositionSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare positionsName: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class UserSchema extends BaseModel {
   static $columns = ['createdAt', 'email', 'fullName', 'id', 'password', 'updatedAt'] as const
   $columns = UserSchema.$columns
