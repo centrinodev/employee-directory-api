@@ -5,9 +5,13 @@ import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import Position from './position.ts'
 
 export default class Employee extends EmployeeSchema {
-    @belongsTo(() => Departmen)
+    @belongsTo(() => Departmen, {
+        foreignKey: 'departmensId'
+    })
     declare departmen: BelongsTo<typeof Departmen>
 
-    @belongsTo(() => Position)
+    @belongsTo(() => Position, {
+        foreignKey: 'positionsId'
+    })
     declare position: BelongsTo<typeof Position>
 }
