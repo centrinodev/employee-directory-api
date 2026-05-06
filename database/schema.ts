@@ -73,10 +73,12 @@ export class EmployeeSchema extends BaseModel {
 }
 
 export class PositionSchema extends BaseModel {
-  static $columns = ['createdAt', 'id', 'positionsName', 'updatedAt'] as const
+  static $columns = ['createdAt', 'departmenId', 'id', 'positionsName', 'updatedAt'] as const
   $columns = PositionSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
+  @column()
+  declare departmenId: number
   @column({ isPrimary: true })
   declare id: number
   @column()
