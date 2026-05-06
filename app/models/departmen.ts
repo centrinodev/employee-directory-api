@@ -1,7 +1,7 @@
 import { DepartmenSchema } from '#database/schema'
-import { belongsTo, hasMany } from '@adonisjs/lucid/orm'
+import { hasMany } from '@adonisjs/lucid/orm'
 import Employee from './employee.ts'
-import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
+import type { HasMany } from '@adonisjs/lucid/types/relations'
 import Position from './position.ts'
 
 export default class Departmen extends DepartmenSchema {
@@ -10,8 +10,8 @@ export default class Departmen extends DepartmenSchema {
     })
     declare employees: HasMany<typeof Employee>
 
-    @belongsTo(() => Position, {
-        foreignKey: 'departmensId'
+    @hasMany(() => Position, {
+        foreignKey: 'departmenId'
     })
-    declare positions: BelongsTo<typeof Position>
+    declare positions: HasMany<typeof Position>
 }

@@ -10,6 +10,6 @@ export default class Position extends PositionSchema {
     })
     declare employees: HasMany<typeof Employee>
 
-    @belongsTo(() => Departmen, { foreignKey: 'departmensId' })
-    declare departmens: BelongsTo<typeof Departmen>
+    @belongsTo(() => Departmen, { foreignKey: 'departmenId' })
+    declare departmen: BelongsTo<typeof Departmen>
 }
