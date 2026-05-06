@@ -15,12 +15,28 @@ type employeeType = {
 
 export class EmployeeService {
 
-  async index() {
-    const data = await Employee.query().preload('departmen').preload('position')
-    return data
+  async index(departmen?: string, status?: string, query?: string) {
+    const data = Employee.query().preload('departmen').preload('position')
+    if (query) {
+      data.where((builder) => {
+        builder.whereILike('full_name', `%${query}%`).orWhereILike('email', `%${query}%`)
+      })
+    }
+
+    if (status) {
+      data.where('status', status)
+    }
+
+    if (departmen) {
+      data.whereHas('departmen', (departmenQuery) => {
+        departmenQuery.where('departmen_name', departmen)
+      })
+    }
+
+    return await data.exe
   }
 
-  async show(code: string){
+  async show(code: string) {
     return await Employee.findByOrFail('employee_code', code)
   }
 
@@ -47,7 +63,7 @@ export class EmployeeService {
       hireDate = DateTime.fromJSDate(hireDate)
     }
 
-    return await data.merge({...payload, hireDate}).save()
+    return await data.merge({ ...payload, hireDate }).save()
   }
 
   async destroy(code: string) {

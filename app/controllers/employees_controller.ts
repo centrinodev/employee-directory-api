@@ -8,8 +8,11 @@ export default class EmployeesController {
 
     constructor(protected employeeService: EmployeeService) { }
 
-    async index({ response }: HttpContext) {
-        const data = await this.employeeService.index()
+    async index({ request,response }: HttpContext) {
+        const filterDepartmen = request.input('departmen')
+        const filterStatus = request.input('status')
+        const query = request.input('q')
+        const data = await this.employeeService.index(filterDepartmen, filterStatus, query)
         return response.ok({
             status: 200,
             message: 'Employee Data Retrieved Successfully',
