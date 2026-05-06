@@ -33,7 +33,7 @@ export class EmployeeService {
       })
     }
 
-    return await data.exe
+    return await data
   }
 
   async show(code: string) {
