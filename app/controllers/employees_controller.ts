@@ -8,7 +8,7 @@ export default class EmployeesController {
 
     constructor(protected employeeService: EmployeeService) { }
 
-    async index({ request,response }: HttpContext) {
+    async index({ request, response }: HttpContext) {
         const filterDepartmen = request.input('departmen')
         const filterStatus = request.input('status')
         const query = request.input('q')
@@ -20,7 +20,17 @@ export default class EmployeesController {
         })
     }
 
-    async show({response, params}:HttpContext){
+    async statisticStatusEmployee({ request, response }: HttpContext) {
+        const departmen = request.input('departmen')
+        const data = await this.employeeService.statisticStatusEmployee(departmen)
+        return response.ok({
+            status: 200,
+            message: 'Statistic Employee Status Data Retrieved Successfully',
+            data: data
+        })
+    }
+
+    async show({ response, params }: HttpContext) {
         const code = params.code
         const data = await this.employeeService.show(code)
         return response.ok({
@@ -55,7 +65,7 @@ export default class EmployeesController {
         })
     }
 
-    async destroy({response, params}: HttpContext){
+    async destroy({ response, params }: HttpContext) {
         const code = params.code
         await this.employeeService.destroy(code)
         return response.ok({

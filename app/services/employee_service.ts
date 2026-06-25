@@ -36,6 +36,25 @@ export class EmployeeService {
     return await data
   }
 
+    async statisticStatusEmployee(departmen?: string) {
+    const query = Employee.query().select('status').count('* as total').groupBy('status')
+
+    if (departmen) {
+      query.whereHas('departmen', (db) => db.where('departmen_name', departmen))
+    }
+
+    const results = await query
+
+    const getCount = (status: string) => 
+      Number(results.find(r => r.status === status)?.$extras.total) || 0
+
+    return {
+      departmen: departmen || 'Semua Departemen/Divisi',
+      active: getCount('active'),
+      inactive: getCount('inactive')
+    }
+  }
+
   async show(code: string) {
     return await Employee.findByOrFail('employee_code', code)
   }
