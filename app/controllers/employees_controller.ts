@@ -40,7 +40,7 @@ export default class EmployeesController {
         })
     }
 
-    async post({ request, response }: HttpContext) {
+    async create({ request, response }: HttpContext) {
         const payload = await request.validateUsing(createEmployeeValidator)
         const data = await this.employeeService.create(payload)
         return response.created({
